@@ -1,0 +1,79 @@
+serviceName : AuthService
+
+cookieDomainName: .twomini.net
+
+cookieSecureOnly: false # set to true in production!
+
+serviceBaseURL: "http://auth.twomini.net/" # should use HTTPS in production
+
+salt: somSaltForHashingPasswords-YouShouldUseYourOwnString # some salt for hashing passwords
+
+http :
+  port : 4998
+  adminPort : 4998
+
+  # Request Logging
+  requestLog:
+    console:
+      # If true, log requests to stdout.
+      enabled: true
+      # The time zone in which dates should be displayed.
+      timeZone: UTC
+      # A custom Logback format string.
+      logFormat: null
+    # Settings for logging to a file.
+    file:
+      # If true, log requests to a file.
+      enabled: true
+      # The time zone in which dates should be displayed.
+      timeZone: UTC
+      # A custom Logback format string.
+      logFormat: null
+      # The file to which statements will be logged.
+      #
+      # If enabled is true, this must be specified.
+      currentLogFilename: ./requests.log
+      # If true, log files are rotated and archived.
+      archive: true
+      # When the log file rolls over, the file will be archived to
+      # example-2012-03-15.log.gz, example.log will be truncated,
+      # and new requests written to it.
+      #
+      # If archive is true, this must be specified.
+      archivedLogFilenamePattern: ./requests-%d.log.gz
+      # The maximum number of log files to archive.
+      archivedFileCount: 10
+
+
+# Logging settings.
+logging:
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+  console:
+    # If true, write log statements to stdout.
+    enabled: true
+    # Do not display log statements below this threshold to stdout.
+    threshold: ALL
+
+  # Settings for logging to a file.
+  file:
+
+    # If true, write log statements to a file.
+    enabled: true
+
+    # Do not write log statements below this threshold to the file.
+    threshold: ALL
+
+    # The file to which current statements will be logged.
+    currentLogFilename: ./service.log
+
+    # When the log file rotates, the archived log will be renamed to this and gzipped. The
+    # %d is replaced with the previous day (yyyy-MM-dd). Custom rolling windows can be created
+    # by passing a SimpleDateFormat-compatible format as an argument: "%d{yyyy-MM-dd-hh}".
+    archivedLogFilenamePattern: ./service-%d.log.gz
+
+    # The number of archived files to keep.
+    archivedFileCount: 10
+
+    # The timezone used to format dates. HINT: USE THE DEFAULT, UTC.
+    timeZone: UTC

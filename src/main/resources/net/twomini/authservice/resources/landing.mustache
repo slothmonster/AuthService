@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="">
+<!--<![endif]-->
+<head>
+    <meta charset='utf-8'>
+    <title>My Account</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/auth.css">
+</head>
+<body>
+    <div id="universalNav">
+        <ul>
+            <li><a href="/" class="current">Account Home</a></li>
+            <li><a href="changePassword.html">Change My Password</a></li>
+            {{#hasRoleUserAdmin}}<li><a href="manageUsers.html">Manage Users</a></li>{{/hasRoleUserAdmin}}
+        </ul>
+    </div>
+
+    <div id="user">
+        <span>Hi,&nbsp;</span><span id="displayName">{{verifiedUserToken.userAccount.displayName}}</span>
+        <a id="logoutLink" href="logout.html">logout</a>
+    </div>
+
+    <h1>Welcome {{verifiedUserToken.userAccount.displayName}}</h1>
+
+    <div id="message">{{message}}</div>
+
+    <div id="landingMenuWrapper">
+        <ul class="loginNav">
+            <li><a href="changePassword.html">Change My Password</a></li>
+            {{#hasRoleUserAdmin}}<li><a href="manageUsers.html">Manage Users</a></li>{{/hasRoleUserAdmin}}
+         </ul>
+    </div>
+
+</body>
+</html>

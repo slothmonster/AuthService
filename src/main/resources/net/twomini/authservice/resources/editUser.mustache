@@ -1,0 +1,67 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="">
+<!--<![endif]-->
+<head>
+    <title>Edit User</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/auth.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){$('#username').focus();});
+    </script>
+</head>
+<body>
+    <div id="universalNav">
+        <ul>
+            <li><a href="/" class="current">Account Home</a></li>
+            <li><a href="changePassword.html">Change My Password</a></li>
+            {{#hasRoleUserAdmin}}<li><a href="manageUsers.html">Manage Users</a></li>{{/hasRoleUserAdmin}}
+        </ul>
+    </div>
+    <div id="user">
+        <span>Hi,&nbsp;</span><span id="displayName">{{verifiedUserToken.userAccount.displayName}}</span>
+        <a id="logoutLink" href="logout.html">logout</a>
+    </div>
+
+    <h1>Edit User's Roles</h1>
+
+    <div id="message">{{message}}</div>
+
+    <form method="post" action="editUser">
+    {{#userAccount}}
+        <div id="usernameWrapper"><label for="userName">Username</label> <span>{{name}}</span></div>
+        <input type="hidden" name="userName" value="{{name}}"/>
+        <div id="passwordWrapper"><label for="password">Password</label> <input type="password" id="password" name="password" value=""/></div>
+        <div id="passwordWrapper"><label for="password">Confirm</label> <input type="password" id="passwordConfirm" name="passwordConfirm" value=""/></div>
+        <div id="displayNameWrapper"><label for="displayName">Display Name</label> <input type="text" id="displayName" name="displayName" value="{{displayName}}"/></div>
+
+        <div id="rolesWrapper">
+            <label for="roles" id="rolesLabel">Assigned Roles</label>
+            <ul>
+            {{#hasRoles}}
+                  <li><input id="newUserRole" name="newUserRole_{{role.id}}" type="checkbox" value="{{role.id}}" {{#hasRole}}checked{{/hasRole}}>{{role.name}}</li>
+            {{/hasRoles}}
+            </ul>
+        </div>
+
+{{#canAssignProxyUsers}}
+        <div id="rolesWrapper">
+            <label for="roles" id="rolesLabel">Can Proxy For</label>
+            <ul>
+            {{#proxyUsers}}
+                  <li><input name="proxyUser_{{userAccount.id}}" type="checkbox" value="{{userAccount.id}}" {{#isChecked}}checked{{/isChecked}}>{{userAccount.displayName}}</li>
+            {{/proxyUsers}}
+            </ul>
+        </div>
+{{/canAssignProxyUsers}}
+
+    {{/userAccount}}
+        <input type="submit" value="Save User"/>
+    </form>
+</body>
+</html>

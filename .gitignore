@@ -1,0 +1,13 @@
+
+.DS_Store
+
+.idea
+
+target
+
+*.iml
+
+*.log
+
+*.log.gz
+
