@@ -26,14 +26,20 @@ public class InMemoryDataStore implements DataStore {
         Role userAdminRole = new Role(roleIdGenerator.incrementAndGet(), "UserAdmin", "UserAdmin");
         Role developerRole = new Role(roleIdGenerator.incrementAndGet(), "Developer", "UserAdmin");
         Role tutorialRole = new Role(roleIdGenerator.incrementAndGet(), "Tutorial", "UserAdmin");
+        Role verifyTokenRole = new Role(roleIdGenerator.incrementAndGet(), "verifyToken", "ServiceAdmin");
+        Role secretRole = new Role(roleIdGenerator.incrementAndGet(), "secretRole", "UserAdmin");
 
         roles.add(userAdminRole);
         roles.add(tutorialRole);
+        roles.add(verifyTokenRole);
+        roles.add(secretRole);
 
-        users.add(new UserAccount(userAccountIdGenerator.incrementAndGet(), "boss", "Pointy Hair Boss", UserAccount.hashPassword("boss", salt), Arrays.asList(new Role[]{userAdminRole})));
+
+        users.add(new UserAccount(userAccountIdGenerator.incrementAndGet(), "boss", "Pointy Hair Boss", UserAccount.hashPassword("boss", salt), Arrays.asList(new Role[]{userAdminRole, secretRole})));
         users.add(new UserAccount(userAccountIdGenerator.incrementAndGet(), "wally", "Wally", UserAccount.hashPassword("wally", salt), Arrays.asList(new Role[]{developerRole})));
 
         services.add(new ServiceAccount(serviceAccountIdGenerator.incrementAndGet(), "testServiceAccount", "4bc1b91b-39d6-4b9f-a8e0-bdcb29e6bdf1a608e3a1-8ecf-4583-8ce1-00c9e410cb54", Arrays.asList(new Role[]{developerRole})));
+        services.add(new ServiceAccount(serviceAccountIdGenerator.incrementAndGet(), "HybridContentService", "e61fbd14-98b0-4a7e-81cc-ef8e5367845f-5afc3b56-bb1b-4f48-9e41-94a49915f113", Arrays.asList(new Role[]{developerRole, verifyTokenRole})));
     }
 
     @Override
