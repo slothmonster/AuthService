@@ -481,7 +481,7 @@ public class AuthResource {
 
     @POST
     @Timed
-    @Path("verifyUserToken")
+    @Path("getUserDetails")
     @Consumes("application/x-www-form-urlencoded")
     @Produces({"application/json"})
     public Response verifyUserToken(@HeaderParam("serviceId") @NotNull String serviceToken, @HeaderParam("userSessionId") @NotNull String token) {
@@ -519,7 +519,7 @@ public class AuthResource {
 
     @POST
     @Timed
-    @Path("verifyServiceToken")
+    @Path("getServiceDetails")
     @Consumes("application/x-www-form-urlencoded")
     @Produces({"application/json"})
     public Response verifyServiceToken(@HeaderParam("serviceId") @NotNull String serviceToken, @HeaderParam("callingServiceId") @NotNull String serviceTokenToVerify) {

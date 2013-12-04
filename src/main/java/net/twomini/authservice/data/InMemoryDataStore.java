@@ -30,6 +30,7 @@ public class InMemoryDataStore implements DataStore {
         Role secretRole = new Role(roleIdGenerator.incrementAndGet(), "secretRole", "UserAdmin");
 
         roles.add(userAdminRole);
+        roles.add(developerRole);
         roles.add(tutorialRole);
         roles.add(verifyTokenRole);
         roles.add(secretRole);

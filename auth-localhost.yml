@@ -1,10 +1,10 @@
 serviceName : AuthService
 
-cookieDomainName: .twomini.net
+cookieDomainName: .me.com
 
 cookieSecureOnly: false # set to true in production!
 
-serviceBaseURL: "http://auth.twomini.net/" # should use HTTPS in production
+serviceBaseURL: "http://auth.me.com/" # should use HTTPS in production
 
 salt: somSaltForHashingPasswords-YouShouldUseYourOwnString # some salt for hashing passwords
 
