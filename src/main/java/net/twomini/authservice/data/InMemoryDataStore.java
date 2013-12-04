@@ -25,8 +25,10 @@ public class InMemoryDataStore implements DataStore {
 
         Role userAdminRole = new Role(roleIdGenerator.incrementAndGet(), "UserAdmin", "UserAdmin");
         Role developerRole = new Role(roleIdGenerator.incrementAndGet(), "Developer", "UserAdmin");
+        Role tutorialRole = new Role(roleIdGenerator.incrementAndGet(), "Tutorial", "UserAdmin");
 
         roles.add(userAdminRole);
+        roles.add(tutorialRole);
 
         users.add(new UserAccount(userAccountIdGenerator.incrementAndGet(), "boss", "Pointy Hair Boss", UserAccount.hashPassword("boss", salt), Arrays.asList(new Role[]{userAdminRole})));
         users.add(new UserAccount(userAccountIdGenerator.incrementAndGet(), "wally", "Wally", UserAccount.hashPassword("wally", salt), Arrays.asList(new Role[]{developerRole})));

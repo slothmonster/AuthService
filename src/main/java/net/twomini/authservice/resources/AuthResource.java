@@ -5,6 +5,7 @@ import net.twomini.authservice.data.*;
 import net.twomini.authservice.data.dto.ServiceDetails;
 import net.twomini.authservice.data.dto.UserDetails;
 import com.yammer.metrics.annotation.Timed;
+import net.twomini.authservice.data.dto.UserNavDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -449,6 +450,34 @@ public class AuthResource {
             throw new WebApplicationException(Response.serverError().cacheControl(NO_CACHE_CONTROL).cookie(newEmptyExpiredCookie()).build());
         }
     }
+
+    @GET
+    @Timed
+    @Path("accountNavDetails")
+    @Produces({"application/json"})
+    public Response accountNavDetails(@CookieParam("authUser") String token, @HeaderParam("Origin") String origin){
+        String errorMessage = null;
+
+        try{
+            UserToken verifiedUserToken = doVerifyUserToken(token);
+            UserNavDetails details = new UserNavDetails();
+
+            if (verifiedUserToken != null){
+                details.setDisplayName(verifiedUserToken.userAccount.displayName);
+                details.setLoggedIn(true);
+                details.setRoles(verifiedUserToken.userAccount.roles);
+
+
+            }
+            return Response.ok().cacheControl(NO_CACHE_CONTROL).header("Access-Control-Allow-Origin", origin).header("Access-Control-Allow-Credentials", "true").entity(details).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            errorMessage = "Woops, that shouldn't have happened! Your request was not processed.";
+        }
+        throw new WebApplicationException(Response.status(401).cacheControl(NO_CACHE_CONTROL).entity(errorMessage).build());
+
+    }
+
 
     @POST
     @Timed
